@@ -1,0 +1,366 @@
+{
+	Skip to content
+Search...
+
+Log in
+Create account
+
+5
+
+0
+
+1
+
+Cover image for Vim CoC Explorer..Explorador de archivos más rápido de todos
+Vim CoC Explorer..Explorador de archivos más rápido de todos
+#spanish #help #vim #neovim
+
+Teo Dev
+16 abr ・4 min read
+Coc Explorer un explorador de archivos inspirado en Vscode File explorer super configurable y hermoso con git status incluido. Vamos a empezar con la instalación para empezar usarlos.
+
+ACLARACIÓN:
+Esta configuración a sido gracias a NikolaM-Dev
+
+Limpiar los plugins
+Para evitar cualquier conflicto con los otros file explorers para eso los borramos desde la función call plug#begin() y corremos :PlugClean y damos y luego de eso procedemos a la instalación
+
+Instalar CoC
+Para ver si tenemos instalado Coc podemos hacerlo con el comando:
+:CocInfo
+Debería aparecer lo siguiente:
+image
+
+Si da comando no reconocido procedemos a instalar coc añadiendo esto a plug
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Luego corremos:
+:so%
+Y al final corremos:
+:PlugInstall
+Luego de esto cerramos neovim y volvemos a entrar.
+
+Instalar CoC Explorer
+Una vez instalado CoC podemos instalar CoC Explorer
+:CocInstall coc-explorer 
+Te aparecera algo asi:
+
+image
+
+Una vez que este finalizado se verá de la siguiente manera:
+
+image
+
+Ahora procedemos a configurar.
+
+Configurar Coc Explorer
+Para empezar deberías tener un archivo coc-settings.json o lo creas.
+
+image
+
+Una vez aquí abre llaves y pega lo siguiente:
+  // coc-explorer
+  "explorer.openAction.for.directory": "expandOrCollapse",
+  "explorer.git.icon.status.added": "✚",
+  "explorer.git.icon.status.deleted": "✖",
+  "explorer.git.icon.status.renamed": "➜",
+  "explorer.git.icon.status.unmerged": "≠",
+  "explorer.git.icon.status.untracked": "?",
+  "explorer.git.icon.status.modified": "✹",
+  "explorer.git.icon.status.ignored": "☒",
+  "explorer.git.icon.status.mixed": "*",
+  "explorer.icon.enableNerdfont": true,
+  "explorer.quitOnOpen": true,
+  "explorer.file.showHiddenFiles": false,
+  "explorer.file.column.clip.copy": "",
+  "explorer.file.column.clip.cut": "",
+  "explorer.width": 25,
+  "explorer.file.hiddenRules": {
+    "extensions": ["o", "a", "obj", "pyc"],
+    "filenames": ["\\.byebug+", "\\.DS_Store|"],
+    "patternMatches": ["^\\.git$", "^\\node_modules$", "^\\plugged$"]
+  },
+  "explorer.keyMappings.global": {
+    // "i": false, // cancel default mapkey
+    "s": "toggleSelection",
+    "<tab>": "actionMenu",
+    "gk": ["wait", "expandablePrev"],
+    "gj": ["wait", "expandableNext"],
+    "h": ["wait", "collapse"],
+    "l": ["wait", "expandable?", "expand", "open"],
+    "J": ["wait", "toggleSelection", "normal:j"],
+    "K": ["wait", "toggleSelection", "normal:k"],
+    "gl": ["wait", "expand:recursive"],
+    "gh": ["wait", "collapse:recursive"],
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
+    "b": "open:split:plain",
+    "v": "open:vsplit",
+    "C": ["wait", "expandable?", "cd", "open"],
+    "u": ["wait", "gotoParent"],
+    "gs": ["wait", "reveal:select"],
+    "il": "preview:labeling",
+    //"ic": "preview:content",
+    "ic": false,
+    //"Il": "previewOnHover:toggle:labeling",
+    "Il": false,
+    //"Ic": "previewOnHover:toggle:content",
+    "Ic": false,
+    "II": "previewOnHover:disable",
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "dd": "cutFile",
+    "p": "pasteFile",
+    "t": "delete",
+    "d": "deleteForever",
+    "n": "addFile",
+    "N": "addDirectory",
+    "r": "rename",
+    "m": "rename",
+    "<dot>": "toggleHidden",
+    "R": "refresh",
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+    "f": "search",
+    "F": "searchRecursive",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+    "[[": ["wait", "sourcePrev"],
+    "]]": ["wait", "sourceNext"],
+    "[i": ["wait", "indentPrev"],
+    "]i": ["wait", "indentNext"],
+    "[m": ["wait", "markPrev:modified"],
+    "]m": ["wait", "markNext:modified"],
+    "[d": ["wait", "markPrev:diagnosticError:diagnosticWarning"],
+    "]d": ["wait", "markNext:diagnosticError:diagnosticWarning"],
+    "[D": ["wait", "markPrev:diagnosticError"],
+    "]D": ["wait", "markNext:diagnosticError"],
+    "gp": ["wait", "markPrev:git"],
+    "gn": ["wait", "markNext:git"],
+    "ga": "gitStage",
+    "gr": "gitUnstage"
+  },
+  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+
+Esto dará a CoC Explorer una apariencia minimalista y con varios atajos si quieres leer mas sobre CoC Explorer puedes seguir aquí
+
+Ahora vamos al vimrc y al init.vim y colocamos lo siguiente esta configuración es para Windows siguiente a esta estará la de Linux y Mac
+"------------------------------------------------COC EXPLORER CONFIG
+" Disable netrw.
+let g:loaded_netrw  = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_matchit = 1
+
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '%APPDATA%\Local\nvim',
+\   },
+\   'cocConfig': {
+\      'root-uri': '%APPDATA%\Local\nvim\coc-settings.json',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+\     'sources': [{'name': 'buffer', 'expand': v:true}]
+\   },
+\   'git': {
+\     'sources': [{'name': 'git', 'expand': v:true}]
+\   },
+\ }
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+augroup coc-explorer
+  if @% == '' || @% == '.'
+    autocmd User CocNvimInit bd
+    autocmd User CocNvimInit CocCommand explorer
+  endif
+augroup END
+if exists('#User#CocGitStatusChange')
+  doautocmd <nomodeline> User CocGitStatusChange
+endif
+nnoremap <leader>n :CocCommand explorer<CR>
+nnoremap <leader>p :CocCommand explorer --preset floating<CR> 
+
+Ahora la de Linux y Mac. Para esto necesitamos ir a este repositorio de un amigo llamado NikolaM-Dev el tiene la configuración para linux te la dejo aquí
+
+Ahora recargamos vim y listo esto se abre con leader n o puedes cambiarlo.
+
+Agradecimientos
+Gracias por leer este post para cualquier cosa que desees agregar los comentarios si quieres enterarte de las ultimas novedades de mi configuración puedes seguirme en github aquí
+
+Hecho con ❤ en Ecuador
+
+Discussion (0)
+Subscribe
+pic
+Add to the discussion
+Code of Conduct • Report abuse
+Read next
+vonheikemen profile image
+Neovim: using vim-plug in lua
+Heiker - Aug 4
+
+d4vsanchez profile image
+Convertir un array de objetos a un objeto usando TypeScript
+David Sánchez - Aug 3
+
+vonheikemen profile image
+Everything you need to know to configure neovim using lua
+Heiker - Aug 2
+
+vonheikemen profile image
+Todo lo que necesitan saber para configurar neovim usando lua
+Heiker - Aug 2
+
+
+Teo Dev
+Follow
+Hello! My Name is Teo, I love made the live of the people easy with the software show my projects in my github https://github.com/TeoDev1611
+LOCATION
+Ecuador
+JOINED
+13 feb 2021
+More from Teo Dev
+Moldy mi nuevo proyecto
+#opensource #spanish #go #help
+¿ Cómo instalar Neovim en Linux ?
+#neovim #help #spanish #tutorial
+¿ Cómo Encontrar Plugins Para Vim ?
+#help #vim #discuss #spanish
+  // coc-explorer
+  "explorer.openAction.for.directory": "expandOrCollapse",
+  "explorer.git.icon.status.added": "✚",
+  "explorer.git.icon.status.deleted": "✖",
+  "explorer.git.icon.status.renamed": "➜",
+  "explorer.git.icon.status.unmerged": "≠",
+  "explorer.git.icon.status.untracked": "?",
+  "explorer.git.icon.status.modified": "✹",
+  "explorer.git.icon.status.ignored": "☒",
+  "explorer.git.icon.status.mixed": "*",
+  "explorer.icon.enableNerdfont": true,
+  "explorer.quitOnOpen": true,
+  "explorer.file.showHiddenFiles": false,
+  "explorer.file.column.clip.copy": "",
+  "explorer.file.column.clip.cut": "",
+  "explorer.width": 25,
+  "explorer.file.hiddenRules": {
+    "extensions": ["o", "a", "obj", "pyc"],
+    "filenames": ["\\.byebug+", "\\.DS_Store|"],
+    "patternMatches": ["^\\.git$", "^\\node_modules$", "^\\plugged$"]
+  },
+  "explorer.keyMappings.global": {
+    // "i": false, // cancel default mapkey
+    "s": "toggleSelection",
+    "<tab>": "actionMenu",
+    "gk": ["wait", "expandablePrev"],
+    "gj": ["wait", "expandableNext"],
+    "h": ["wait", "collapse"],
+    "l": ["wait", "expandable?", "expand", "open"],
+    "J": ["wait", "toggleSelection", "normal:j"],
+    "K": ["wait", "toggleSelection", "normal:k"],
+    "gl": ["wait", "expand:recursive"],
+    "gh": ["wait", "collapse:recursive"],
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
+    "b": "open:split:plain",
+    "v": "open:vsplit",
+    "C": ["wait", "expandable?", "cd", "open"],
+    "u": ["wait", "gotoParent"],
+    "gs": ["wait", "reveal:select"],
+    "il": "preview:labeling",
+    //"ic": "preview:content",
+    "ic": false,
+    //"Il": "previewOnHover:toggle:labeling",
+    "Il": false,
+    //"Ic": "previewOnHover:toggle:content",
+    "Ic": false,
+    "II": "previewOnHover:disable",
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "dd": "cutFile",
+    "p": "pasteFile",
+    "t": "delete",
+    "d": "deleteForever",
+    "n": "addFile",
+    "N": "addDirectory",
+    "r": "rename",
+    "m": "rename",
+    "<dot>": "toggleHidden",
+    "R": "refresh",
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+    "f": "search",
+    "F": "searchRecursive",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+    "[[": ["wait", "sourcePrev"],
+    "]]": ["wait", "sourceNext"],
+    "[i": ["wait", "indentPrev"],
+    "]i": ["wait", "indentNext"],
+    "[m": ["wait", "markPrev:modified"],
+    "]m": ["wait", "markNext:modified"],
+    "[d": ["wait", "markPrev:diagnosticError:diagnosticWarning"],
+    "]d": ["wait", "markNext:diagnosticError:diagnosticWarning"],
+    "[D": ["wait", "markPrev:diagnosticError"],
+    "]D": ["wait", "markNext:diagnosticError"],
+    "gp": ["wait", "markPrev:git"],
+    "gn": ["wait", "markNext:git"],
+    "ga": "gitStage",
+    "gr": "gitUnstage"
+  },
+  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+
+DEV Community – A constructive and inclusive social network for software developers. With you every step of your journey.
+
+Built on Forem — the open source software that powers DEV and other inclusive communities.
+
+Made with love and Ruby on Rails. DEV Community © 2016 - 2021.
+}
