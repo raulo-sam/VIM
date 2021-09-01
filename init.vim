@@ -251,7 +251,7 @@ let g:coc_global_extensions = ['coc-tsserver']
 nmap w :w<CR>
 nmap q :q<CR>
 nmap Q :q!<CR>
-
+"
 
 
 
