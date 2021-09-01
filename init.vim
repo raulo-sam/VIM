@@ -3,7 +3,7 @@
 call plug#begin('C:\Users\raul\AppData\Local\nvim\plugged') 	"directorio donde se van a instalar los plugins
 
 "plugins
-"Plug 'joshdick/onedark.vim' 		"tema
+Plug 'joshdick/onedark.vim' 		"tema
 Plug 'Yggdroot/indentLine' 		"indentacion
 Plug 'mattn/emmet-vim' 			"emmet para diseño web
 Plug 'vim-airline/vim-airline'		"diseño de la barra en la cual se muestran los modos, la linea, etc.
@@ -14,17 +14,22 @@ Plug 'jiangmiao/auto-pairs'		"autocompletado de llaves, corchetes, etc.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}	"autocompletado inteligente
 
 
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'easymotion/vim-easymotion' " Sive para desplazarse mas rapido
 
 Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
-Plug 'jparise/vim-graphql'        " GraphQL syntax
+"Plug 'jparise/vim-graphql'        " GraphQL syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
 
 call plug#end() 			"cerramos el llamado de los plugins
 
 "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
 "CONFIGURACIONES BASICAS 
 set number 				"muestra los numeros de cada linea en la parte izquierda 
 set relativenumber 			"la distribucion de los numeros en lineas de manera relativa
@@ -34,15 +39,27 @@ syntax enable 				"activa el coloreado de sintaxis en algunos tipos de archivos 
 set encoding=utf-8 			"permite setear la codificación de archivos para aceptar caracteres especiales
 set sw=4 				"la indentación genera 4 espacios
 set nowrap				"el texto en una linea no baja a la siguiente, solo continua en la misma hasta el infinito.
-"set noswapfile				"para evitar el mensaje que sale al abrir algunos archivos sobre swap.
+set noswapfile				"para evitar el mensaje que sale al abrir algunos archivos sobre swap.
 set clipboard=unnamed			"para poder utilizar el portapapeles del sistema operativo 'esto permite poder copiar y pegar desde cualquier parte a nvim y viceversa.	
-
+set showcmd   " raul ???
+set showmatch    "raul mostrar parentesis que esta cerrando
 
 "configuracion del tema
 set termguicolors 			"activa el true color en la terminal
 colorscheme onedark 			"activar el tema onedark
 
 "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+"EASE MOTION
+
+let mapleader=" "
+"nmap s <Plug>(easymotion-t2)
+nmap <Leader>s <Plug>(easymotion-bd-w)
+
+"terminal"
+nmap ñ :terminal<CR>i
+
 
 "configuracion de emmet-vim
 let g:user_emmet_leader_key=',' 	"mapeando la tecla lider por una coma, con esto se completa los tag con doble coma.
@@ -230,3 +247,11 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver']
+
+nmap w :w<CR>
+nmap q :q<CR>
+nmap Q :q!<CR>
+
+
+
+
