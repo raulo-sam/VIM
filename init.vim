@@ -1,6 +1,6 @@
 ":::instalacion de plugins:::
 
-call plug#begin('C:\Users\raul\AppData\Local\nvim\plugged') 	"directorio donde se van a instalar los plugins
+call plug#begin('~/.config/nvim/plugged') 	"directorio donde se van a instalar los plugins
 
 "plugins
 Plug 'joshdick/onedark.vim' 		"tema
@@ -248,9 +248,9 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver']
 
-nmap w :w<CR>
-nmap q :q<CR>
-nmap Q :q!<CR>
+nmap  <leader>w :w<CR>
+nmap  <leader>wq :q<CR>
+nmap  <leader>wQ :q!<CR>
 "
 
 
