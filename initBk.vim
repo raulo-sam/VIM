@@ -1,63 +1,33 @@
+if !exists('g:vscode')
+endif
+
 ":::instalacion de plugins:::
-
 call plug#begin('~/.config/nvim/plugged') 	"directorio donde se van a instalar los plugins
-
 "plugins
-Plug 'joshdick/onedark.vim' 		"tema
-Plug 'Yggdroot/indentLine' 		"indentacion
-Plug 'mattn/emmet-vim' 			"emmet para diseño web
-Plug 'vim-airline/vim-airline'		"diseño de la barra en la cual se muestran los modos, la linea, etc.
-Plug 'vim-airline/vim-airline-themes'	"temas para el vim-airline
-Plug 'preservim/nerdtree'		"gestor de archivos en forma de arbol.
-Plug 'christoomey/vim-tmux-navigator'	"poder navegar entre archivos abiertos
-Plug 'jiangmiao/auto-pairs'		"autocompletado de llaves, corchetes, etc.
-Plug 'neoclide/coc.nvim', {'branch': 'release'}	"autocompletado inteligente
 
+source ~/.config/nvim/plugins/plugins.vim
 
-
-Plug 'pangloss/vim-javascript'    " JavaScript support
-Plug 'leafgarland/typescript-vim' " TypeScript syntax
-Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
-Plug 'jparise/vim-graphql'        " GraphQL syntax
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'wincent/terminus'            "integracion mejorada en terminal
-
-"angular
-Plug 'iamcco/coc-angular'
+"Plug 'glepnir/dashboard-nvim'
 
 call plug#end() 			"cerramos el llamado de los plugins
+"settings Plugins
 
+source ~/.config/nvim/plugin-config/vim-easymotion.vim
+source ~/.config/nvim/plugin-config/vim-coc-settings.vim
 
-
+source ~/.config/nvim/plugin-config/vim-airline.vim
 "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+"general-settings 
+"
+source ~/.config/nvim/settings/general-settings.vim
 
-"CONFIGURACIONES BASICAS 
-set number 				"muestra los numeros de cada linea en la parte izquierda 
-set relativenumber 			"la distribucion de los numeros en lineas de manera relativa
-set mouse=a 				"permite la interaccion con el mouse
-set noshowmode				"me deja de mostrar el modo en el que estamos 'normal, insert, visual, etc'
-syntax enable 				"activa el coloreado de sintaxis en algunos tipos de archivos como html, c, c++
-set encoding=utf-8 			"permite setear la codificación de archivos para aceptar caracteres especiales
-set sw=4 				"la indentación genera 4 espacios
-set nowrap				"el texto en una linea no baja a la siguiente, solo continua en la misma hasta el infinito.
-"set noswapfile				"para evitar el mensaje que sale al abrir algunos archivos sobre swap.
-set clipboard=unnamed			"para poder utilizar el portapapeles del sistema operativo 'esto permite poder copiar y pegar desde cualquier parte a nvim y viceversa.	
+let mapleader=" "
 
-
-"configuracion del tema
-set termguicolors 			"activa el true color en la terminal
-colorscheme onedark 			"activar el tema onedark
-
-"::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 "configuracion de emmet-vim
 let g:user_emmet_leader_key=',' 	"mapeando la tecla lider por una coma, con esto se completa los tag con doble coma.
 
 
-"configuracion de vim-airline
-let g:airline#extensions#tabline#enabled = 1	"muestra la linea de pestaña en la que estamos buffer
-let g:airline#extensions#tabline#formatter = 'unique_tail'	"muestra solo el nombre del archivo que estamos modificando
-let g:airline_theme='onedark'	"el tema de airline
 
 
 "configuracion de nerdtree
@@ -65,9 +35,28 @@ let g:airline_theme='onedark'	"el tema de airline
 "control y -n la tecla n lo que indica que realizará la siguiente funcion de excribir el comando NERDTreeToggle y CR significa ENTER.
 map <C-n> :NERDTreeToggle<CR>
 
+"Esto le dice a Vim que mantenga una copia de seguridad de un archivo cuando
+"l#o sobreescribe. Pero no en el sistema VMS, ya que éste mantiene versiones
+"anteriores por su cuenta. El backup tendrá el mismo nombre con un «~»
+"delante.  Véase |07.4| >
+	if has("vms")
+	  set nobackup
+	else
+	  set backup
+      endif
+
+"Mantiene 50 órdenes y 50 patrones de búsqueda en el historial. Use otro
+":número si quiere almacenar más o menos líneas.  >
+	set history=50
 
 
-"configuracion por defecto de coc
+"prueba f5 rodea con llaves los parentesis
+	:map <F5> diwi{<Esc>p<Esc>
+	:map \p i(<Esc>ea)<Esc>
+	:map \c i{<Esc>ea}<Esc>
+
+	
+	"configuracion por defecto de coc
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -221,13 +210,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
+" Show commands.  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr> Find symbol of current document.  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr> Search workspace symbols.  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr> Do default action for next item.
 nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
@@ -236,3 +219,10 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver']
+
+nmap  <leader>w :w<CR>
+nmap  <leader>W :wq<CR>
+nmap  <leader>q :q<CR>
+nmap  <leader>Q :q!<CR>
+inoremap  F <END> 
+
