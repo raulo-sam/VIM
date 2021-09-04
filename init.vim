@@ -5,7 +5,7 @@ endif
 call plug#begin('~/.config/nvim/plugged') 	"directorio donde se van a instalar los plugins
 "plugins
 
-source ~/.config/nvim/plugins/plugins.vim
+source ~/.config/nvim/plugins.vim
 
 "Plug 'glepnir/dashboard-nvim'
 
