@@ -20,3 +20,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-fugitive'
