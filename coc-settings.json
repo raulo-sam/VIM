@@ -1,5 +1,5 @@
-
-  "explorer.openAction.for.directory": "expandOrCollapse",
+{
+  "explorer.openAction.strategy": "sourceWindow",
   "explorer.git.icon.status.added": "✚",
   "explorer.git.icon.status.deleted": "✖",
   "explorer.git.icon.status.renamed": "➜",
@@ -8,6 +8,7 @@
   "explorer.git.icon.status.modified": "✹",
   "explorer.git.icon.status.ignored": "☒",
   "explorer.git.icon.status.mixed": "*",
+	"explorer.icon.source":"builtin",
   "explorer.icon.enableNerdfont": true,
   "explorer.quitOnOpen": true,
   "explorer.file.showHiddenFiles": false,
@@ -20,13 +21,12 @@
     "patternMatches": ["^\\.git$", "^\\node_modules$", "^\\plugged$"]
   },
   "explorer.keyMappings.global": {
-    // "i": false, // cancel default mapkey
     "s": "toggleSelection",
     "<tab>": "actionMenu",
     "gk": ["wait", "expandablePrev"],
     "gj": ["wait", "expandableNext"],
     "h": ["wait", "collapse"],
-    "l": ["wait", "expandable?", "expand", "open"],
+    "l": ["wait", "expandable?", "expand"],
     "J": ["wait", "toggleSelection", "normal:j"],
     "K": ["wait", "toggleSelection", "normal:k"],
     "gl": ["wait", "expand:recursive"],
@@ -43,13 +43,9 @@
     "C": ["wait", "expandable?", "cd", "open"],
     "u": ["wait", "gotoParent"],
     "gs": ["wait", "reveal:select"],
-    "il": "preview:labeling",
-    //"ic": "preview:content",
-    "ic": false,
-    //"Il": "previewOnHover:toggle:labeling",
-    "Il": false,
-    //"Ic": "previewOnHover:toggle:content",
-    "Ic": false,
+    "il": "preview:labeling", 
+    "ic": "preview:content",
+		"yi": "open:split",
     "II": "previewOnHover:disable",
     "yp": "copyFilepath",
     "yn": "copyFilename",
@@ -61,7 +57,6 @@
     "n": "addFile",
     "N": "addDirectory",
     "r": "rename",
-    "m": "rename",
     "<dot>": "toggleHidden",
     "R": "refresh",
     "?": "help",
@@ -88,7 +83,6 @@
     "ga": "gitStage",
     "gr": "gitUnstage"
   },
-  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
-  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
-  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
-	"exlorer.position":"floating"
+  "explorer.position":"floating",
+	"explorer.focus": true
+}

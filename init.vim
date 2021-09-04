@@ -3,25 +3,20 @@ endif
 
 ":::instalacion de plugins:::
 call plug#begin('~/.config/nvim/plugged') 	"directorio donde se van a instalar los plugins
-"plugins
-
 source ~/.config/nvim/plugins.vim
-
 "Plug 'glepnir/dashboard-nvim'
+call plug#end() 			
 
-call plug#end() 			"cerramos el llamado de los plugins
+"general-settings 
+source ~/.config/nvim/general-settings.vim
 "settings Plugins
-
 source ~/.config/nvim/plugin-config/vim-easymotion.vim
 source ~/.config/nvim/plugin-config/vim-coc-settings.vim
-
 source ~/.config/nvim/plugin-config/vim-airline.vim
-"::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-"general-settings 
-"
-source ~/.config/nvim/general-settings.vim
+source ~/.config/nvim/mapping.vim
+" general mappings
 
-let mapleader=" "
+" let mapleader=" "
 
 
 "configuracion de emmet-vim
@@ -48,12 +43,6 @@ map <C-n> :NERDTreeToggle<CR>
 "Mantiene 50 órdenes y 50 patrones de búsqueda en el historial. Use otro
 ":número si quiere almacenar más o menos líneas.  >
 	set history=50
-
-
-"prueba f5 rodea con llaves los parentesis
-	:map <F5> diwi{<Esc>p<Esc>
-	:map \p i(<Esc>ea)<Esc>
-	:map \c i{<Esc>ea}<Esc>
 
 	
 	"configuracion por defecto de coc
@@ -152,44 +141,11 @@ augroup mygroup
 augroup end
 
 " Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-" Note coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-
-" NeoVim-only mapping for visual mode scroll
-" Useful on signatureHelp after jump placeholder of snippet expansion
 if has('nvim')
   vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
   vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
 endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -205,17 +161,10 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr> Find symbol of current document.  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr> Search workspace symbols.  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr> Do default action for next item.
 nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver']
@@ -224,5 +173,4 @@ nmap  <leader>w :w<CR>
 nmap  <leader>W :wq<CR>
 nmap  <leader>q :q<CR>
 nmap  <leader>Q :q!<CR>
-inoremap  F <END> 
 

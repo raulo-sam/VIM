@@ -1,4 +1,3 @@
-
 "CONFIGURACIONES BASICAS 
 set number 				"muestra los numeros de cada linea en la parte izquierda 
 set relativenumber 			"la distribucion de los numeros en lineas de manera relativa
@@ -16,7 +15,8 @@ set incsearch
 set nowrap    "pasa a linea siguiene si desborda 
 set autowrite "cuando cambias de pestaña guarda automaticamente w"
 "configuracion del tema
+set ignorecase 
 set termguicolors 			"activa el true color en la terminal
 colorscheme onedark 			"activar el tema onedark
+set guioptions+=b 	"establece barra horizontal"
 
-:nnoremap <space>e :CocCommand explorer<CR>
